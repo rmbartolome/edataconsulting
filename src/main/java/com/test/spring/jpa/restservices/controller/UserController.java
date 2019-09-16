@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -43,6 +44,6 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userServices.deleteById(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }
