@@ -1,5 +1,6 @@
 package com.test.spring.jpa.restservices.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class User implements Serializable {
 
     @NotBlank
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL)

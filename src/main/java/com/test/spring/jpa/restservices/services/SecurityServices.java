@@ -15,7 +15,7 @@ public class SecurityServices {
 
     public int authLogin(String username, String password) {
         User user = userServices.getUserByName(username);
-        if(user!=null){
+        if(user!=null&&user.getPassword().equalsIgnoreCase(password)){
             if(isAdmin(user.getRoles())){
                 return 1;
             }
