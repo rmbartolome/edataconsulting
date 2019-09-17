@@ -1,7 +1,7 @@
 package com.test.spring.jpa.restservices;
 
-import com.test.spring.jpa.restservices.dto.Role;
-import com.test.spring.jpa.restservices.dto.User;
+import com.test.spring.jpa.restservices.model.Role;
+import com.test.spring.jpa.restservices.model.User;
 import com.test.spring.jpa.restservices.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 
@@ -47,9 +46,9 @@ public class RestServicesApplication {
                     add(new Role("consumer"));
                 }
             });
-            userServices.save(user);
-            userServices.save(user2);
-            userServices.save(user3);
+            userServices.createOrUpdateUser(user);
+            userServices.createOrUpdateUser(user2);
+            userServices.createOrUpdateUser(user3);
         };
     }
 }

@@ -1,14 +1,12 @@
-package com.test.spring.jpa.restservices.dto;
+package com.test.spring.jpa.restservices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@EqualsAndHashCode(exclude = "users")
 @Table(name = "roles")
 @EntityListeners(AuditingEntityListener.class)
 public class Role {

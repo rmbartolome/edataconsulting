@@ -1,4 +1,4 @@
-package com.test.spring.jpa.restservices.dto;
+package com.test.spring.jpa.restservices.model;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
