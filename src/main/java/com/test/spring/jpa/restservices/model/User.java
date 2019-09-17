@@ -1,10 +1,11 @@
-package com.test.spring.jpa.restservices.dto;
+package com.test.spring.jpa.restservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,19 +22,11 @@ public class User {
 
     @NotBlank
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Role> roles;
-
-    public User() {
-    }
-
-    public User(@NotBlank String name, @NotBlank String password, List<Role> roles) {
-        this.name = name;
-        this.password = password;
-        this.roles = roles;
-    }
+    @ManyToMany
+    private Set<Role> roles;
 
     public long getId() {
         return id;
@@ -51,11 +44,11 @@ public class User {
         this.name = name;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

@@ -1,24 +1,24 @@
 package com.test.spring.jpa.restservices;
 
-import com.test.spring.jpa.restservices.dto.Role;
-import com.test.spring.jpa.restservices.dto.User;
-import com.test.spring.jpa.restservices.services.UserServices;
+import com.test.spring.jpa.restservices.dao.UserRepository;
+import com.test.spring.jpa.restservices.model.Role;
+import com.test.spring.jpa.restservices.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @SpringBootApplication
 @EnableJpaAuditing
 public class RestServicesApplication {
 
     @Autowired
-    private UserServices userServices;
+    private UserRepository userServices;
 
     public static void main(String[] args) {
         SpringApplication.run(RestServicesApplication.class, args);
@@ -28,28 +28,98 @@ public class RestServicesApplication {
     @Bean
     CommandLineRunner runner() {
         return args -> {
-            User user = new User("User 1", "123", new ArrayList<Role>() {
-                {
-                    add(new Role("admin"));
-                    add(new Role("standard"));
-                }
-            });
-            User user2 = new User("admin", "123", new ArrayList<Role>() {
-                {
-                    add(new Role("admin"));
-                    add(new Role("standard"));
-                    add(new Role("sales"));
-                }
-            });
-            User user3 = new User("roberto", "123", new ArrayList<Role>() {
-                {
-                    add(new Role("standard"));
-                    add(new Role("consumer"));
-                }
-            });
-            userServices.save(user);
-            userServices.save(user2);
-            userServices.save(user3);
+            addUsersTest();
         };
+    }
+
+    private void addUsersAdmin(){
+        Role role = new Role();
+        role.setName("admin");
+        User userAdmin = new User();
+        userAdmin.setName("admin");
+        userAdmin.setPassword("123456");
+        userAdmin.setRoles(new HashSet<>(Arrays.asList(role)));
+        role.setUsers(new HashSet<>(Arrays.asList(userAdmin)));
+        userServices.save(userAdmin);
+    }
+
+    private void addUsersTest(){
+/*
+        userServices.save(new User("User 1", "123", new HashSet<>() {
+            {
+                add(new Role("admin"));
+                add(new Role("standard"));
+            }
+        }));
+        userServices.save(new User("admin", "123", new ArrayList<Role>() {
+            {
+                add(new Role("admin"));
+                add(new Role("standard"));
+                add(new Role("sales"));
+            }
+        }));
+        userServices.save(new User("roberto", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("marcos", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("carlos", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("juan", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("jose", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("maria", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("ana", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("elena", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+
+        userServices.save(new User("juana", "123", new ArrayList<Role>() {
+            {
+                add(new Role("standard"));
+                add(new Role("consumer"));
+            }
+        }));
+        */
     }
 }

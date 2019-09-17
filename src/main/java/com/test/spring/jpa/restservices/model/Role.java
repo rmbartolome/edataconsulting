@@ -1,14 +1,13 @@
-package com.test.spring.jpa.restservices.dto;
+package com.test.spring.jpa.restservices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
-@EqualsAndHashCode(exclude = "users")
 @Table(name = "roles")
 @EntityListeners(AuditingEntityListener.class)
 public class Role {
@@ -22,12 +21,8 @@ public class Role {
     @Column(nullable = false)
     private String name;
 
-    public Role() {
-    }
-
-    public Role(@NotBlank String name) {
-        this.name = name;
-    }
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
     public long getId() {
         return id;
@@ -43,5 +38,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
