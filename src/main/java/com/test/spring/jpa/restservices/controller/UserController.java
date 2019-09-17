@@ -1,6 +1,7 @@
 package com.test.spring.jpa.restservices.controller;
 
 import com.test.spring.jpa.restservices.model.User;
+import com.test.spring.jpa.restservices.services.SecurityServices;
 import com.test.spring.jpa.restservices.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserServices userServices;
+
+    @Autowired
+    private SecurityServices securityServices;
 
     @GetMapping("/all")
     public ResponseEntity getUsers() {

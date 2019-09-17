@@ -1,6 +1,7 @@
 package com.test.spring.jpa.restservices.services;
 
 import com.test.spring.jpa.restservices.dao.UserRepository;
+import com.test.spring.jpa.restservices.model.Role;
 import com.test.spring.jpa.restservices.model.User;
 import com.test.spring.jpa.restservices.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class UserServices {
         }
     }
 
+    public User getUserByName(String username) throws ResourceNotFoundException
+    {
+        User user = userRepository.findByName(username);
+
+        if(user!= null) {
+            return user;
+        } else {
+            throw new ResourceNotFoundException("No user record exist for given id ","id",username);
+        }
+    }
+
     public User createOrUpdateUser(User user) throws ResourceNotFoundException
     {
         Optional<User> entity = userRepository.findById(user.getId());
@@ -46,6 +58,9 @@ public class UserServices {
             User newEntity = entity.get();
             newEntity.setName(user.getName());
             newEntity.setPassword(user.getPassword());
+            if(user.getRoles().isEmpty()){
+                user.getRoles().add(new Role("standard"));
+            }
             newEntity.setRoles(user.getRoles());
 
             newEntity = userRepository.save(newEntity);

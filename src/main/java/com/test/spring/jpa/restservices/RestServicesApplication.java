@@ -37,13 +37,11 @@ public class RestServicesApplication {
                 {
                     add(new Role("admin"));
                     add(new Role("standard"));
-                    add(new Role("sales"));
                 }
             });
             User user3 = new User("roberto", "123", new ArrayList<Role>() {
                 {
                     add(new Role("standard"));
-                    add(new Role("consumer"));
                 }
             });
             userServices.createOrUpdateUser(user);

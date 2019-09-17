@@ -5,11 +5,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "roles")
 @EntityListeners(AuditingEntityListener.class)
-public class Role {
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +20,9 @@ public class Role {
     private long id;
 
     @NotBlank
-    @Column(nullable = false)
     private String name;
 
-    public Role() {
+    public Role(){
     }
 
     public Role(@NotBlank String name) {
