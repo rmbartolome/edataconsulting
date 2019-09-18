@@ -35,7 +35,7 @@ public class UserServices {
         if(user.isPresent()) {
             return user.get();
         } else {
-            throw new ResourceNotFoundException("No user record exist for given id ","id",id);
+            throw new ResourceNotFoundException("No user record exist for given id ","id",String.valueOf(id));
         }
     }
 
@@ -81,7 +81,7 @@ public class UserServices {
             userRepository.deleteById(id);
             return "success";
         } else {
-            throw new ResourceNotFoundException("No user record exist for given id ","id",id);
+            throw new ResourceNotFoundException("No user record exist for given id ","id",String.valueOf(id));
         }
     }
 
