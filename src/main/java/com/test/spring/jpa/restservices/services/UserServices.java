@@ -19,10 +19,10 @@ public class UserServices {
 
     public List<User> getAllUsers()
     {
-        List<User> employeeList = userRepository.findAll();
+        List<User> userList = userRepository.findAll();
 
-        if(employeeList.size() > 0) {
-            return employeeList;
+        if(!userList.isEmpty()) {
+            return userList;
         } else {
             return new ArrayList<>();
         }

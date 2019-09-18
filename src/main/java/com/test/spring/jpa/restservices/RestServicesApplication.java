@@ -36,7 +36,6 @@ public class RestServicesApplication {
             User user2 = new User("admin", "123", new ArrayList<Role>() {
                 {
                     add(new Role("admin"));
-                    add(new Role("standard"));
                 }
             });
             User user3 = new User("test", "123", new ArrayList<Role>() {
