@@ -1,9 +1,10 @@
 package com.test.spring.jpa.restservices.controller;
 
-import com.test.spring.jpa.restservices.dto.User;
-import com.test.spring.jpa.restservices.exceptions.ResourceNotFoundException;
+import com.test.spring.jpa.restservices.model.User;
+import com.test.spring.jpa.restservices.services.SecurityServices;
 import com.test.spring.jpa.restservices.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,37 +13,37 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     @Autowired
     private UserServices userServices;
 
+    @Autowired
+    private SecurityServices securityServices;
+
     @GetMapping("/all")
-    public Iterable<User> getUsers() {
-        return userServices.findAll();
+    public ResponseEntity getUsers() {
+        return new ResponseEntity<>(userServices.getAllUsers(), new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userServices.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+    public ResponseEntity getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userServices.getUserById(id), new HttpHeaders(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity addUser(@Valid @RequestBody User user) {
-        user = userServices.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity addUser(@Valid @RequestBody User userAdd) {
+        return new ResponseEntity<>(userServices.createOrUpdateUser(userAdd),new HttpHeaders(),  HttpStatus.OK);
     }
 
     @PutMapping("/add")
-    public ResponseEntity updateUser(@Valid @RequestBody User user) {
-        user = userServices.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity updateUser(@Valid @RequestBody User userUpd) {
+        return new ResponseEntity<>(userServices.createOrUpdateUser(userUpd),new HttpHeaders(),  HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-        userServices.deleteById(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(userServices.deleteById(id),new HttpHeaders(), HttpStatus.OK);
     }
 }
