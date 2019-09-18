@@ -39,7 +39,7 @@ public class RestServicesApplication {
                     add(new Role("standard"));
                 }
             });
-            User user3 = new User("roberto", "123", new ArrayList<Role>() {
+            User user3 = new User("test", "123", new ArrayList<Role>() {
                 {
                     add(new Role("standard"));
                 }

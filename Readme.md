@@ -34,6 +34,12 @@ The app will start running at <http://localhost:8082>.
 
 The app defines following CRUD APIs.
 
+Test users 
+
+user: "User 1" pass "123"
+user: "admin" pass "123"
+user: "test" pass "123"
+
     users
     GET /users/all
     
